@@ -11,7 +11,7 @@ import datetime
 
 start_date = str(datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
 region = os.getenv("region")
-client = boto3.client('ec2','us-west-2')
+client = boto3.client('ec2',region)
 
 def lambda_handler(event, context):
     instanceids = []
