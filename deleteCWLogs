@@ -1,0 +1,16 @@
+###########Deleting Empty Loggroups###############
+
+import json
+import os
+import boto3
+client = boto3.client('logs')
+def lambda_handler(event, context):
+    groups = client.describe_log_groups()
+    loggroups = groups["logGroups"]
+    #for group in groups["logGroups"]
+    for loggroup in loggroups:
+        if loggroup["storedBytes"] == 0 :
+            print(loggroup['logGroupName'])
+            response = client.delete_log_group(
+                logGroupName=loggroup['logGroupName']
+            )
